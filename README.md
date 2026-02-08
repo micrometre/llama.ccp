@@ -14,15 +14,6 @@ This repository contains everything needed to install and manage llama-cpp on Ub
 - **`INSTALL.md`** - Comprehensive installation guide with troubleshooting
 - **`SETUP_COMPLETE.md`** - Post-installation guide and quick reference
 
-## ✅ Installation Status
-
-The llama-cpp installation on this system is **complete and operational**:
-
-- ✓ 18 binaries installed to `/opt/llama-cpp/bin`
-- ✓ 27 libraries installed to `/opt/llama-cpp/lib`
-- ✓ Systemd service running on port 8000
-- ✓ Library paths configured via ldconfig
-- ✓ Symlinks created in `/usr/local/bin`
 
 ## 🚀 Quick Start
 
