@@ -266,9 +266,12 @@ After=network.target
 
 [Service]
 Type=simple
-User=root
+User=ubuntu
+Group=ubuntu
 WorkingDirectory=$INSTALL_PREFIX
-ExecStart=$INSTALL_PREFIX/bin/llama-server
+Environment=LD_LIBRARY_PATH=$INSTALL_PREFIX
+Environment=HOME=/home/ubuntu
+ExecStart=/bin/bash -c 'MODEL=\$(find \$HOME/.cache/llama.cpp/ -name "*.gguf" 2>/dev/null | head -1); if [ -z "\$MODEL" ]; then echo "No models found in cache. Please run a model command first (e.g., make run-hf-gemma)"; exit 1; fi; exec $INSTALL_PREFIX/llama-server -m "\$MODEL" --port 8080 --host 0.0.0.0'
 Restart=on-failure
 RestartSec=10
 StandardOutput=journal
@@ -281,6 +284,9 @@ EOF
         
         systemctl daemon-reload
         print_success "Systemd service created"
+        print_info "Service will run as 'ubuntu' user and use cached models"
+        print_info "Start with: systemctl start llama-cpp"
+        print_info "Enable on boot: systemctl enable llama-cpp"
     fi
 }
 
