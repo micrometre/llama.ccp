@@ -271,7 +271,7 @@ Group=ubuntu
 WorkingDirectory=$INSTALL_PREFIX
 Environment=LD_LIBRARY_PATH=$INSTALL_PREFIX
 Environment=HOME=/home/ubuntu
-ExecStart=/bin/bash -c 'MODEL=\$(find \$HOME/.cache/llama.cpp/ -name "*.gguf" 2>/dev/null | head -1); if [ -z "\$MODEL" ]; then echo "No models found in cache. Please run a model command first (e.g., make run-hf-gemma)"; exit 1; fi; exec $INSTALL_PREFIX/llama-server -m "\$MODEL" --port 8080 --host 0.0.0.0'
+ExecStart=/bin/bash -c 'MODEL="\$HOME/.cache/llama.cpp/bartowski_Qwen2.5-Coder-7B-Instruct-GGUF_Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf"; if [ ! -f "\$MODEL" ]; then echo "Qwen2.5-Coder-7B model not found. Please run: make run-qwen-coder"; exit 1; fi; exec $INSTALL_PREFIX/llama-server -m "\$MODEL" --port 8080 --host 0.0.0.0'
 Restart=on-failure
 RestartSec=10
 StandardOutput=journal
@@ -284,7 +284,7 @@ EOF
         
         systemctl daemon-reload
         print_success "Systemd service created"
-        print_info "Service will run as 'ubuntu' user and use cached models"
+        print_info "Service will use Qwen2.5-Coder-7B as default model"
         print_info "Start with: systemctl start llama-cpp"
         print_info "Enable on boot: systemctl enable llama-cpp"
     fi
